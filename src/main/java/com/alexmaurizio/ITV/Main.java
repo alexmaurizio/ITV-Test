@@ -1,58 +1,56 @@
 package com.alexmaurizio.ITV;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.alexmaurizio.ITV.Business.CheckoutProcessor;
 import com.alexmaurizio.ITV.Business.FileLoader;
 import com.alexmaurizio.ITV.Models.Product;
+import com.alexmaurizio.ITV.UserInterface.MainFrame;
 
 public class Main {
 	
-	
-	     
+    private static void createAndShowGUI() { 
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(chooser);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           System.out.println("You chose to open this file: " +
+                chooser.getSelectedFile().getName());
+        }
+        
+        
+    }
+ 
     public static void main(String[] args) {
-    	
-    	// Debug Flag
-    	Boolean debug = false;    	
-    	
-    	/**
-    	 * STARTUP LOADING PHASE
-    	 */
-	
-	    // Load Products from the initial DB
-    	ArrayList<Product> products = FileLoader.loadProducts("C:\\Development\\Java\\Workspace\\ITV-Test\\src\\main\\resources\\product_db");
-
-    	// Load Special Offers
-    	products = FileLoader.matchSpecialOffers(products, "C:\\Development\\Java\\Workspace\\ITV-Test\\src\\main\\resources\\special_prices");    	
-    	
-    	// Debug Print Product Loaded
-    	if(debug)
-    	FileLoader.printDatabase(products);  	
-    	 
-    	/**
-    	 * 
-    	 * END STARTUP LOADING PHASE
-    	 * 
-    	 * BEGIN CHECKOUT TRANSACTION
-    	 * 
-    	 */
-    	
-    	// Pass the loaded DB to the checkout processor
-    	CheckoutProcessor processor = new CheckoutProcessor(products);
-
-    	// Process the data!    	
-    	processor.acceptScan("B");
-    	processor.acceptScan("A");
-    	processor.acceptScan("B");
-    	
-    	
-    	// Debug Print Resulting Map
-    	if (debug)
-	    processor.printList();
-	    
-	    // Calculate the price and end the checkout session
-	    processor.calculate();
-	    	
-    }   
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //createAndShowGUI();
+            	try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
+            	MainFrame theMainFrame = new MainFrame();
+            	theMainFrame.setSize(new Dimension(700,700));
+            	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            	theMainFrame.setLocation(dim.width/2-700/2, dim.height/2-700/2);
+            }
+        });
+    }
     
 }
