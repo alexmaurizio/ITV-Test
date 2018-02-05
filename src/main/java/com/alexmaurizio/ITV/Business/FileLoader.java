@@ -36,7 +36,7 @@ public class FileLoader {
 				product.setName(parts[1]);
 				product.setPrice(Double.parseDouble(parts[2]));
 
-				// Add it to the array
+				// Add it to the array 
 				products.add(product);
 			}
 
@@ -73,6 +73,7 @@ public class FileLoader {
 				String  newSku = parts[0];				
 				Integer specPriceTrigger = Integer.parseInt(parts[1]);
 				Double  specPrice = Double.parseDouble(parts[2]);
+				Boolean found = false;
 
 				// Check if there is a matching product in our database to add the special offer data					
 		    	for (Product oldProd: products) {
@@ -81,7 +82,16 @@ public class FileLoader {
 		    			// Populate the product with the special offer
 		    			oldProd.setSpecialPrice(specPrice);
 		    			oldProd.setSpecialPriceMinTrigger(specPriceTrigger);
+		    			
+		    			// Set and exit
+		    			found = true;
+		    			break;
 		    		}
+		    	}
+		    	
+		    	// If not found - WARN to the console
+		    	if(!found) {
+		    		System.out.println("[WARN] There is an offer for product " + newSku + ", but it's not in the database! Ignoring..");
 		    	}
 			}
 

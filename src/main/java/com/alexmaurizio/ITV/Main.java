@@ -28,7 +28,7 @@ public class Main {
     	// Debug Print Product Loaded
     	if(debug)
     	FileLoader.printDatabase(products);  	
-    	
+    	 
     	/**
     	 * 
     	 * END STARTUP LOADING PHASE

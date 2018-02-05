@@ -80,9 +80,9 @@ public class CheckoutProcessor {
 	}
 
 	/**
-	 * Calculate the final price, print the invoice
+	 * Calculate the final price, print the invoice and return the price
 	 */
-	public void calculate() {
+	public Double calculate() {
 		
 		// Log END SCANS
 		System.out.println("[INFO] Checkout & Scans Completed! Starting invoice calculation..");
@@ -124,10 +124,10 @@ public class CheckoutProcessor {
 			
 			// Print additional line when there is a special discount and it's applied
 			if (prod.hasSpecialOffer() && count >= prod.getSpecialPriceMinTrigger())
-			System.out.println("    >> BUY " + prod.getSpecialPriceMinTrigger() + " FOR " + String.format("%.2f", prod.getSpecialPrice()) + "£");
+			System.out.println("     >> BUY " + prod.getSpecialPriceMinTrigger() + " FOR " + String.format("%.2f", prod.getSpecialPrice()) + "£");
 
 			
-			// Add to the invoice
+			// Add to the invoice 
 			finalInvoice += thisCost;			
 			
 			
@@ -139,6 +139,9 @@ public class CheckoutProcessor {
 		System.out.println("----------------------------");
 		System.out.println("--- THANKS FOR SHOPPING! ---");
 		System.out.println("----------------------------\n\n");
+		
+		// Return the price
+		return finalInvoice;
 		
 	}
 
