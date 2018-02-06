@@ -34,7 +34,7 @@ public class FileLoader {
 				Product product = new Product();
 				product.setSku(parts[0]);
 				product.setName(parts[1]);
-				product.setPrice(Double.parseDouble(parts[2]));
+				product.setPrice(Integer.parseInt(parts[2]));
 
 				// Add it to the array 
 				products.add(product);
@@ -57,7 +57,7 @@ public class FileLoader {
 	 * Loads special offers from a semicolon-separated file and matches against DB
 	 */
 	public static ArrayList<Product> matchSpecialOffers(ArrayList<Product> products, String path) {
-		
+
 		// Load the file from Path
 		File file = new File(path);
 
@@ -70,30 +70,30 @@ public class FileLoader {
 
 				// Split the semicolon and populate
 				String[] parts = line.split(";");
-				
+
 				String  newSku = parts[0];				
 				Integer specPriceTrigger = Integer.parseInt(parts[1]);
-				Double  specPrice = Double.parseDouble(parts[2]);
+				Integer specPrice = Integer.parseInt(parts[2]);
 				Boolean found = false;
 
 				// Check if there is a matching product in our database to add the special offer data					
-		    	for (Product oldProd: products) {
-		    		if(oldProd.getSku().equals(newSku))
-		    		{
-		    			// Populate the product with the special offer
-		    			oldProd.setSpecialPrice(specPrice);
-		    			oldProd.setSpecialPriceMinTrigger(specPriceTrigger);
-		    			
-		    			// Set and exit
-		    			found = true;
-		    			break;
-		    		}
-		    	}
-		    	
-		    	// If not found - WARN to the console
-		    	if(!found) {
-		    		System.out.println("[WARN] There is an offer for product " + newSku + ", but it's not in the database! Ignoring..");
-		    	}
+				for (Product oldProd: products) {
+					if(oldProd.getSku().equals(newSku))
+					{
+						// Populate the product with the special offer
+						oldProd.setSpecialPrice(specPrice);
+						oldProd.setSpecialPriceMinTrigger(specPriceTrigger);
+
+						// Set and exit
+						found = true;
+						break;
+					}
+				}
+
+				// If not found - WARN to the console
+				if(!found) {
+					System.out.println("[WARN] There is an offer for product " + newSku + ", but it's not in the database! Ignoring..");
+				}
 			}
 
 			scanner.close();
@@ -112,12 +112,12 @@ public class FileLoader {
 	 */
 	public static void printDatabase(ArrayList<Product> products) {
 		System.out.println("\n---- LOADED DATABASE ----");
-		
+
 		for (Product p: products) {
 			System.out.print("\nSKU: " + p.getSku());
 			System.out.print(" \t Name: " + p.getName());
 			System.out.println(" \t Price: " + String.format("%.2f", p.getPrice()) + "£");
-			
+
 			if(p.hasSpecialOffer())
 			{
 				System.out.println("----- SPECIAL OFFER! " + p.getSpecialPriceMinTrigger() + " for "+ String.format("%.2f", p.getSpecialPrice()) + "£ -----");

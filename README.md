@@ -23,7 +23,7 @@ Each line is a product, values semicolon-separated.
 
 _structure_: SKU;NAME;PRICE
 
-_PRICE is decimal, dot separated_
+_PRICE is INTEGER, in cents_
 
 ##### SPECIAL_PRICES
 
@@ -33,10 +33,10 @@ Each line is a product, values semicolon-separated.
 
 _structure_: SKU;TRIGGER;SPECIALPRICE
 
-_SPECIALPRICE is decimal, dot separated_
+_SPECIALPRICE is INTEGER, in cents_
 
 NOTE: Trigger is the "Number of Products that are discounted together"
 
 EG: If you buy 3 (trigger) the special price will be applied
 
-NOTE: If you buy multiple special offers, those will be counted! You can buy as many special offers you want (eg: 9 x specialprice x3 + 1 non-special priced)
+NOTE: If you buy multiple special offers, those will be counted! You can buy as many special offers you want (eg: 10 = 9 x specialprice x3 + 1 non-special priced)
