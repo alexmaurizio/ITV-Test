@@ -43,7 +43,8 @@ public class FileLoader {
 			scanner.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("[FATAL] The DATABASE File was not found. The path is hardcoded for now, sorry! Just point the path to the product_db file in /src/main/resources/ ");
+			System.exit(-1);
 		}
 
 		// Return
@@ -98,7 +99,8 @@ public class FileLoader {
 			scanner.close();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("[FATAL] The SPECIAL OFFER File was not found. The path is hardcoded for now, sorry! Just point the path to the special_prices file in /src/main/resources/ ");
+			System.exit(-1);
 		}
 
 		// Return
