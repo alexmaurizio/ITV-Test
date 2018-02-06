@@ -15,7 +15,7 @@ ___
 
 ### Database File Structure
 
-#####PRODUCT_DB
+##### PRODUCT_DB
 
 The file **product_db** contains a list of products that will be loaded by the scanner.
 
@@ -25,7 +25,7 @@ _structure_: SKU;NAME;PRICE
 
 _PRICE is decimal, dot separated_
 
-#####SPECIAL_PRICES
+##### SPECIAL_PRICES
 
 The file **special_prices** contains a list of special prices for some products, that will be matched against the original database and populated when needed
 
